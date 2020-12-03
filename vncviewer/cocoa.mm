@@ -292,14 +292,14 @@ static const int kvk_map[][2] = {
   { kVK_Space,          XK_space },
   { kVK_Delete,         XK_BackSpace },
   { kVK_Escape,         XK_Escape },
-  { kVK_RightCommand,   XK_Super_R },
-  { kVK_Command,        XK_Super_L },
+  { kVK_RightCommand,   XK_Alt_R }, // Swap command and alt
+  { kVK_Command,        XK_Alt_L }, // Swap command and alt
   { kVK_Shift,          XK_Shift_L },
   { kVK_CapsLock,       XK_Caps_Lock },
-  { kVK_Option,         XK_Alt_L },
+  { kVK_Option,         XK_Super_L }, // Swap command and alt
   { kVK_Control,        XK_Control_L },
   { kVK_RightShift,     XK_Shift_R },
-  { kVK_RightOption,    XK_Alt_R },
+  { kVK_RightOption,    XK_Super_R }, // Swap command and alt
   { kVK_RightControl,   XK_Control_R },
   { kVK_F17,            XK_F17 },
   { kVK_VolumeUp,       XF86XK_AudioRaiseVolume },
@@ -406,8 +406,9 @@ int cocoa_event_keysym(const void *event)
     modifiers |= alphaLock;
   if ([nsevent modifierFlags] & NSShiftKeyMask)
     modifiers |= shiftKey;
-  if ([nsevent modifierFlags] & NSAlternateKeyMask)
-    modifiers |= optionKey;
+  // ignore option key
+  // if ([nsevent modifierFlags] & NSAlternateKeyMask)
+  //   modifiers |= optionKey;
 
   chars = key_translate(key_code, modifiers);
   if (chars == nil)
